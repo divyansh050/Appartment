@@ -20,6 +20,8 @@ export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const [isLogin,setIsLogin]= React.useState(false);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -106,7 +108,7 @@ export const Navbar = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          {isLogin ? (<Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -136,8 +138,14 @@ export const Navbar = () => {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
-          </Box>
+            </Menu> 
+          </Box> ) : (<Box sx={{ flexGrow: 0 }}>
+              <Link to={"/login"}>
+              Login
+              </Link>
+          </Box>)}
+
+         
         </Toolbar>
       </Container>
     </AppBar>
