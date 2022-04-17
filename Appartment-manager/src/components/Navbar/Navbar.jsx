@@ -45,6 +45,8 @@ export const Navbar = () => {
     if(task === "Logout"){
       dispatch(logoutReq());
       navigate("/login");
+    }else if(task === "Dashboard"){
+      navigate("/");
     }
 
     // console.log(task)
@@ -61,7 +63,7 @@ export const Navbar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <Link to={"/"}>Apartment Details</Link>
+            <Link to={"/"}>Dashboard</Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -106,7 +108,7 @@ export const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            <Link to={"/"}>Apartment Details</Link>
+            <Link to={"/"}>Dashboard</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -125,7 +127,7 @@ export const Navbar = () => {
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
-                    alt="Remy Sharp"
+                    alt="Logged in user"
                     src="https://img.icons8.com/external-flaticons-flat-flat-icons/2x/external-login-web-development-flaticons-flat-flat-icons.png"
                   />
                 </IconButton>

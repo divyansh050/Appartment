@@ -27,18 +27,43 @@ router.post("/", async (req, res) => {
 })
 
 router.get("/", async(req,res) => {
+    const block = req.query.block;
     try{
-
-            const residents = await Resident.find().lean().exec();
+        if(block){
+            const residents = await Resident.find().populate('flat_id').exec((err,residents) => {
+                
+                if(err){
+                    return res.status(500).send(err.message);
+                }
+                const filtered = residents.filter(resident => resident.flat_id.block === block);
+                return res.status(200).send(filtered);
+            }
+            );
+            
+        }else{
+            const residents = await Resident.find()
+              .populate("flat_id")
+              .lean()
+              .exec();
             res.status(200).send(residents);
-          
+        }
         
-
     }catch(e){
         console.log(e)
         return res.status(500).send(e.message);
     }
 })
+
+router.get("/:id", async (req, res) => {
+  try {
+      
+    const residents = await Resident.findById(req.params.id).populate("flat_id").lean().exec();
+    res.status(200).send(residents);
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send(e.message);
+  }
+});
 
 const ResidentController = router;
 
