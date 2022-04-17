@@ -37,4 +37,4 @@ managerSchema.methods.comparePassword = function(password){
 
 const Manager = mongoose.model("Manager",managerSchema);
 
-module.exports = Manager;
+module.exports = Manager; 

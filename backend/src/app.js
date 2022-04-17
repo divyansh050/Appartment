@@ -5,6 +5,10 @@ const PORT = process.env.PORT || 80;
 
 const { login, register } = require("./controllers/auth.controller");
 
+const ResidentController = require("./controllers/resident.controller");
+
+const ApartmentController = require("./controllers/apartment.controller");
+
 const app = express();
 
 app.use(express.json());
@@ -12,6 +16,10 @@ app.use(express.json());
 app.use("/login",login);
 
 app.use("/register",register);
+
+app.use("/resident",ResidentController);
+
+app.use("/apartment",ApartmentController);
 
 
 
