@@ -7,6 +7,7 @@ export const Home = () => {
   const {isLoggedIn} = useSelector(state => state);
   return (
     <>
+    <h1>DashBoard</h1>
     {isLoggedIn ? <CustomizedTables /> : <div>Please Login</div>}
     
     </>

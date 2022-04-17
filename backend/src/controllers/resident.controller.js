@@ -29,6 +29,7 @@ router.post("/", async (req, res) => {
 router.get("/", async(req,res) => {
     const block = req.query.block;
     const sort = req.query.sort;
+    const type = req.query.type;
     try{
         if(block){
             const residents = await Resident.find().populate('flat_id').exec((err,residents) => {
@@ -63,6 +64,18 @@ router.get("/", async(req,res) => {
                     return res.status(200).send(sorted);
                 }
                 
+            }
+            );
+        }else if(type){
+            const residents = await Resident.find({type:type}).populate('flat_id').exec((err,residents) => {
+                
+                if(err){
+                 
+                    return res.status(500).send(err.message);
+                }
+                
+                    return res.status(200).send(residents);
+                 
             }
             );
         }

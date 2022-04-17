@@ -137,7 +137,7 @@ export function CustomizedTables() {
                 <StyledTableCell>ID </StyledTableCell>
                 <StyledTableCell>BLOCK</StyledTableCell>
                 <StyledTableCell>FLAT NO.</StyledTableCell>
-                <StyledTableCell>Available</StyledTableCell>
+                <StyledTableCell>Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>

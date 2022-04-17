@@ -13,7 +13,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton";
-// import { valueToPercent } from "@mui/base";
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,13 +49,12 @@ export  function CustomizedTables() {
   const [rows, setRows] = React.useState([]);
 
   const navigate = useNavigate();
-  
 
   const fetchData = () => {
     setFetching(true);
     axios.get("http://localhost/resident").then((res) => {
       setRows([...res.data]);
-    console.log(res.data)
+      console.log(res.data);
       setFetching(false);
     });
   };
@@ -64,46 +67,109 @@ export  function CustomizedTables() {
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-
   const handleSort = (value) => {
-      
-      setFetching(true);
-        axios.get(`http://localhost/resident?sort=${value}`).then((res) => {
-            setRows([...res.data]);
-            setFetching(false);
-        })
-
+    setFetching(true);
+    axios.get(`http://localhost/resident?sort=${value}`).then((res) => {
+      setRows([...res.data]);
+      setFetching(false);
+    });
 
     // setRows(sorted);
   };
 
-  
-
   const handleFilterChange = (e) => {
     const value = e.target.value.toUpperCase();
 
-    if(value === ""){
-        fetchData()
-        return
+    if (value === "") {
+      fetchData();
+      return;
     }
 
     setFetching(true);
     axios.get(`http://localhost/resident/?block=${value}`).then((res) => {
-        setRows([...res.data]);
-        setFetching(false);
-    })
-
-
+      setRows([...res.data]);
+      setFetching(false);
+    });
   };
 
   const handleDetailPage = (id) => {
-
     navigate(`/resident/${id}`);
   };
+
+  const [Type, setType] = React.useState('');
+
+  const handleChange = (event) => {
+    setType(event.target.value);
+
+    setFetching(true);
+    axios.get(`http://localhost/resident/?type=${event.target.value}`).then((res) => {
+      setRows([...res.data]);
+      setFetching(false);
+    })
+    .catch(err => {
+        console.log(err);
+      setFetching(false);
+    })
+
+
+  }
+
+  /*
+  import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+export default function BasicSelect() {
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
+
+  return (
+    <Box sx={{ minWidth: 120 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={age}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+  );
+    }
+
+   */
 
   return (
     <>
       <div style={{ margin: "10px 0px 10px 0px" }}>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl sx={{ minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-label">Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={Type}
+              label="Type"
+              onChange={handleChange}
+            >
+              <MenuItem value={""}>None</MenuItem>
+              <MenuItem value={"owner"}>Owner</MenuItem>
+              <MenuItem value={"tenant"}>Tenant</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
         <TextField
           type="text"
           onChange={handleFilterChange}
