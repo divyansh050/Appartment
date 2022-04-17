@@ -6,10 +6,8 @@ const residentSchema = new mongoose.Schema(
     name: { type: String, required: true },
     age: { type: String, required: true },
     gender: { type: String, required: true },
-    flat_no:{type:String,required:true},
-    block_name:{type:String,required:true},
     type:{type:String,required:true},
-    apartment_id:{type:mongoose.Schema.Types.ObjectId,ref:"Apartment"}
+    flat_id:{type:mongoose.Schema.Types.ObjectId,ref:"Flat"}
   },
   {
     versionKey: false,
@@ -22,3 +20,5 @@ const residentSchema = new mongoose.Schema(
 const Resident = mongoose.model("Resident", residentSchema);
 
 module.exports = Resident;
+
+

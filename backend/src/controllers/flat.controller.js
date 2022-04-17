@@ -2,12 +2,12 @@ const express = require("express");
 
 const router = express.Router();
 
-const Apartment = require("../models/apartment.model");
+const Flat = require("../models/flat.model");
 
 router.post("/", async(req, res) => {
     try{
-        const apartment = await Apartment.create(req.body);
-        res.status(201).send(apartment);
+        const flat = await Flat.create(req.body);
+        res.status(201).send(flat);
 
 
     }catch(e){
@@ -18,9 +18,9 @@ router.post("/", async(req, res) => {
 
 router.get("/", async(req,res) => {
     try{
-        const apartments = await Apartment.find().lean().exec();
+        const flats = await Flat.find().lean().exec();
 
-        res.status(200).send(apartments);
+        res.status(200).send(flats);
 
     }catch(e){
         console.log(e)
@@ -28,6 +28,6 @@ router.get("/", async(req,res) => {
     }
 })
 
-const ApartmentController = router;
+const FlatController = router;
 
-module.exports = ApartmentController;
+module.exports = FlatController;

@@ -7,7 +7,7 @@ const { login, register, getAll } = require("./controllers/auth.controller");
 
 const ResidentController = require("./controllers/resident.controller");
 
-const ApartmentController = require("./controllers/apartment.controller");
+const FlatController = require("./controllers/flat.controller");
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use("/getAll",getAll);
 
 app.use("/resident",ResidentController);
 
-app.use("/apartment",ApartmentController);
+app.use("/flat",FlatController);
 
 
 
