@@ -6,7 +6,7 @@ const Resident = require("../models/resident.model");
 
 router.post("/", async (req, res) => {
     try{
-        const resident = await Resident.create(req.body).lean().exec();
+        const resident = await Resident.create(req.body);
         res.status(201).json(resident);
 
     }catch(e){
@@ -21,7 +21,7 @@ router.get("/", async(req,res) => {
         let apartment_id = req.query.apartment_id;
 
         if(apartment_id){
-            const residents = await Resident.find({apartment_id}).lean().exec();
+            const residents = await Resident.find({apartment_id}).populate('apartment_id').lean().exec();
             res.status(200).send(residents);
         }else{  // if apartment_id is not provided
             

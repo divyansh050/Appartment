@@ -62,7 +62,7 @@ const register = async (req,res) => {
         // if email is not exist
         // create new manager
 
-        const newManager = Manager.create(req.body).lean().exec();
+        const newManager = Manager.create(req.body);
 
         return res.status(200).send(newManager);
 
@@ -71,4 +71,18 @@ const register = async (req,res) => {
     }
 }
 
-module.exports = { login, register };
+const getAll = async (req,res) => {
+    try{
+        const managers = await Manager.find()
+          .populate("apartment_id")
+          .lean()
+          .exec();
+
+        return res.status(200).send(managers);
+    }catch(e){
+        console.log(e);
+    }
+}
+
+module.exports = { login, register, getAll };
+

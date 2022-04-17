@@ -6,6 +6,8 @@ const apartmentSchema = new mongoose.Schema({
     total_flats:{type:Number,required:true},
     block_wise_flats:[],
     block_wise_residents:[],
+    address:{type:String,required:true},
+    image:{type:String,required:true},
 
 
 });

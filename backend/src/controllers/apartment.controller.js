@@ -6,7 +6,7 @@ const Apartment = require("../models/apartment.model");
 
 router.post("/", async(req, res) => {
     try{
-        const apartment = await Apartment.create(req.body).lean().exec();
+        const apartment = await Apartment.create(req.body);
         res.status(201).send(apartment);
 
 

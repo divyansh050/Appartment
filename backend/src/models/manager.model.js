@@ -8,7 +8,7 @@ const managerSchema = new mongoose.Schema({
     password: {type:String,required:true},
     phone: {type:Number,required:true},
     gender:{type:String,required:true},
-    // apartment_id:{}
+    apartment_id:{type:mongoose.Schema.Types.ObjectId,ref:"Apartment"}
 
  },{
      versionKey:false,
