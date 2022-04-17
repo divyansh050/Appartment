@@ -48,11 +48,13 @@ export function CustomizedTables() {
 
   const fetchData = () => {
     setFetching(true);
-    axios.get("http://localhost/flat").then((res) => {
-      setRows([...res.data]);
-      console.log(res.data);
-      setFetching(false);
-    });
+    axios
+      .get("https://apartment-manager-server.herokuapp.com/flat")
+      .then((res) => {
+        setRows([...res.data]);
+        console.log(res.data);
+        setFetching(false);
+      });
   };
 
   React.useEffect(() => {
@@ -66,15 +68,16 @@ export function CustomizedTables() {
   const handleSort = (value) => {
     console.log(value);
     setFetching(true);
-    axios.get(`http://localhost/flat/?sort=${value}`)
-    .then((res) => {
-      setRows([...res.data]);
-      setFetching(false);
-    })
-    .catch((err) => {
+    axios
+      .get(`https://apartment-manager-server.herokuapp.com/flat/?sort=${value}`)
+      .then((res) => {
+        setRows([...res.data]);
+        setFetching(false);
+      })
+      .catch((err) => {
         console.log(err);
         setFetching(false);
-    })
+      });
     
 
     // setRows(sorted);
@@ -89,10 +92,14 @@ export function CustomizedTables() {
     }
 
     setFetching(true);
-    axios.get(`http://localhost/flat/?block=${value.toUpperCase()}`).then((res) => {
-      setRows([...res.data]);
-      setFetching(false);
-    });
+    axios
+      .get(
+        `https://apartment-manager-server.herokuapp.com/flat/?block=${value.toUpperCase()}`
+      )
+      .then((res) => {
+        setRows([...res.data]);
+        setFetching(false);
+      });
 
   };
 

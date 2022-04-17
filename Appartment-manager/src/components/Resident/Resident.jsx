@@ -15,16 +15,18 @@ export const Resident = () => {
     React.useEffect(() => {
         setFetching(true);
       
-        axios.get(`http://localhost/resident/${id}`).then((res) => {
-            console.log(res.data)
+        axios
+          .get(`https://apartment-manager-server.herokuapp.com/resident/${id}`)
+          .then((res) => {
+            console.log(res.data);
             setValues(res.data);
             setIsError(false);
             setFetching(false);
-        }).catch(err => {
+          })
+          .catch((err) => {
             setIsError(true);
             setFetching(false);
-
-        })
+          });
     
       return () => {
         

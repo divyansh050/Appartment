@@ -52,11 +52,13 @@ export  function CustomizedTables() {
 
   const fetchData = () => {
     setFetching(true);
-    axios.get("http://localhost/resident").then((res) => {
-      setRows([...res.data]);
-      console.log(res.data);
-      setFetching(false);
-    });
+    axios
+      .get("https://apartment-manager-server.herokuapp.com/resident")
+      .then((res) => {
+        setRows([...res.data]);
+        console.log(res.data);
+        setFetching(false);
+      });
   };
 
   React.useEffect(() => {
@@ -69,10 +71,14 @@ export  function CustomizedTables() {
 
   const handleSort = (value) => {
     setFetching(true);
-    axios.get(`http://localhost/resident?sort=${value}`).then((res) => {
-      setRows([...res.data]);
-      setFetching(false);
-    });
+    axios
+      .get(
+        `https://apartment-manager-server.herokuapp.com/resident?sort=${value}`
+      )
+      .then((res) => {
+        setRows([...res.data]);
+        setFetching(false);
+      });
 
     // setRows(sorted);
   };
@@ -86,10 +92,14 @@ export  function CustomizedTables() {
     }
 
     setFetching(true);
-    axios.get(`http://localhost/resident/?block=${value}`).then((res) => {
-      setRows([...res.data]);
-      setFetching(false);
-    });
+    axios
+      .get(
+        `https://apartment-manager-server.herokuapp.com/resident/?block=${value}`
+      )
+      .then((res) => {
+        setRows([...res.data]);
+        setFetching(false);
+      });
   };
 
   const handleDetailPage = (id) => {
@@ -102,14 +112,18 @@ export  function CustomizedTables() {
     setType(event.target.value);
 
     setFetching(true);
-    axios.get(`http://localhost/resident/?type=${event.target.value}`).then((res) => {
-      setRows([...res.data]);
-      setFetching(false);
-    })
-    .catch(err => {
+    axios
+      .get(
+        `https://apartment-manager-server.herokuapp.com/resident/?type=${event.target.value}`
+      )
+      .then((res) => {
+        setRows([...res.data]);
+        setFetching(false);
+      })
+      .catch((err) => {
         console.log(err);
-      setFetching(false);
-    })
+        setFetching(false);
+      });
 
 
   }

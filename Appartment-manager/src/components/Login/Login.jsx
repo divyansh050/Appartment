@@ -13,7 +13,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useSelector, useDispatch } from "react-redux";
-import { loginReq } from "../../redux/action";
+import { loginReq } from "../../Redux/action";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
@@ -50,21 +50,21 @@ export function Login() {
     
         // console.log(values)
         setFetching(true);
-        axios.post("http://localhost/login", {
+        axios
+          .post("https://apartment-manager-server.herokuapp.com/login", {
             email: values.email,
             password: values.password,
-        })
-        .then(res => {
+          })
+          .then((res) => {
             // console.log(res.data)
             setFetching(false);
             dispatch(loginReq(res.data));
             navigate("/");
-
-        })
-        .catch(err => {
-            console.log(err)
+          })
+          .catch((err) => {
+            console.log(err);
             setFetching(false);
-        })
+          });
     
   };
 
