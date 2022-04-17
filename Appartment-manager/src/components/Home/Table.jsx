@@ -207,7 +207,7 @@ export default function BasicSelect() {
                 <StyledTableCell>NAME </StyledTableCell>
                 <StyledTableCell>TYPE</StyledTableCell>
                 <StyledTableCell>BLOCK</StyledTableCell>
-                <StyledTableCell>TOTAL RESIDENT</StyledTableCell>
+                <StyledTableCell>RESIDENT</StyledTableCell>
                 <StyledTableCell>FLAT NO.</StyledTableCell>
                 <StyledTableCell>IMAGE</StyledTableCell>
               </TableRow>

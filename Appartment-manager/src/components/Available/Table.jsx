@@ -137,24 +137,22 @@ export function CustomizedTables() {
                 <StyledTableCell>ID </StyledTableCell>
                 <StyledTableCell>BLOCK</StyledTableCell>
                 <StyledTableCell>FLAT NO.</StyledTableCell>
+                <StyledTableCell>Resident</StyledTableCell>
                 <StyledTableCell>Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row, i) => (
-                <StyledTableRow
-                  key={row.id}
-                 
-                >
+                <StyledTableRow key={row.id}>
                   <StyledTableCell component="th" scope="row">
                     {i + 1}
                   </StyledTableCell>
                   <StyledTableCell>{row.block}</StyledTableCell>
                   <StyledTableCell>{row.flat_no}</StyledTableCell>
+                  <StyledTableCell>{row.total_resident}</StyledTableCell>
                   <StyledTableCell>
                     {!row.status ? "Available" : "Not Available"}
                   </StyledTableCell>
-              
 
                   {/* <StyledTableCell>
                     <Link to={`/add-city/${row.id}`}>{"Edit"}</Link>
