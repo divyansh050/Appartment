@@ -5,7 +5,7 @@ const flatSchema = new mongoose.Schema({
     total_resident:{type:Number,required:true},
     flat_no:{type:Number,required:true},
     image:[],
-    status:{type:Boolean,default:true},
+    status:{type:Boolean,default:false},
 },{
     versionKey:false,
     timestamps:true
@@ -14,5 +14,6 @@ const flatSchema = new mongoose.Schema({
 const Flat = mongoose.model("Flat",flatSchema);
 
 module.exports = Flat;
+
 
  

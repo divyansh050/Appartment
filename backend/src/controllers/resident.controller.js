@@ -9,11 +9,12 @@ router.post("/", async (req, res) => {
     try{
         const resident = await Resident.create(req.body);
 
-        const flat  = await Flat.findById(resident.flat_id);
-        flat.status = false;
+        const flat  = await Flat.findById(resident.flat_id).lean().exec();
+        flat.status = true;
 
-        const updated = Flat.findByIdAndUpdate(resident.flat_id,flat,{new:true});
-        console.log(updated);
+
+        const updated = Flat.findByIdAndUpdate(resident.flat_id,{...flat},{new:true}).exec();
+        // console.log(updated);
 
         res.status(201).send(resident);
 
@@ -28,15 +29,10 @@ router.post("/", async (req, res) => {
 router.get("/", async(req,res) => {
     try{
 
-        
-
-        if(apartment_id){
             const residents = await Resident.find().lean().exec();
             res.status(200).send(residents);
-        }else{  // if apartment_id is not provided
-            
-            res.status(400).send("apartment_id is required");
-        }
+          
+        
 
     }catch(e){
         console.log(e)

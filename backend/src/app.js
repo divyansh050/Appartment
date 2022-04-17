@@ -26,7 +26,7 @@ app.use("/flat",FlatController);
 
 
 
-app.listen(80, async() => {
+app.listen(PORT, async() => {
     try{
         await connect();
         console.log(`Server is running on port ${PORT}`);
