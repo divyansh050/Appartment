@@ -28,6 +28,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async(req,res) => {
     const block = req.query.block;
+    const sort = req.query.sort;
     try{
         if(block){
             const residents = await Resident.find().populate('flat_id').exec((err,residents) => {
@@ -40,7 +41,32 @@ router.get("/", async(req,res) => {
             }
             );
             
-        }else{
+        }else if(sort){
+            const residents = await Resident.find().populate('flat_id').exec((err,residents) => {
+                
+                if(err){
+                 
+                    return res.status(500).send(err.message);
+                }
+                
+                if(sort === "asc"){
+                    const sorted = [...residents].sort(
+                      (a, b) => +a.flat_id.flat_no - +b.flat_id.flat_no
+                    );
+
+                    return res.status(200).send(sorted);
+                }else{
+                    const sorted = [...residents].sort(
+                      (a, b) => +b.flat_id.flat_no - +a.flat_id.flat_no
+                    );
+
+                    return res.status(200).send(sorted);
+                }
+                
+            }
+            );
+        }
+        else{
             const residents = await Resident.find()
               .populate("flat_id")
               .lean()

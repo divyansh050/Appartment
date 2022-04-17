@@ -17,7 +17,7 @@ import { logoutReq } from "../../Redux/action";
 
 import { useNavigate } from "react-router-dom";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Available Flat"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Navbar = () => {
@@ -95,11 +95,14 @@ export const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              {isLoggedIn &&
+                pages.map((page) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      <Link to={"/available_flat_details"}>{page}</Link>
+                    </Typography>
+                  </MenuItem>
+                ))}
             </Menu>
           </Box>
           <Typography
@@ -111,13 +114,15 @@ export const Navbar = () => {
             <Link to={"/"}>Dashboard</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {isLoggedIn && pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                <Link style={{ color: "white" }} to={"/available_flat_details"}>
+                  {page}
+                </Link>
               </Button>
             ))}
           </Box>

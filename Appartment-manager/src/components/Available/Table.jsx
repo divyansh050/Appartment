@@ -39,19 +39,18 @@ function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
 }
 
-export  function CustomizedTables() {
+export function CustomizedTables() {
   const [fetching, setFetching] = React.useState(false);
 
   const [rows, setRows] = React.useState([]);
 
   const navigate = useNavigate();
-  
 
   const fetchData = () => {
     setFetching(true);
-    axios.get("http://localhost/resident").then((res) => {
+    axios.get("http://localhost/flat").then((res) => {
       setRows([...res.data]);
-    console.log(res.data)
+      console.log(res.data);
       setFetching(false);
     });
   };
@@ -64,42 +63,40 @@ export  function CustomizedTables() {
 
   const [isLoading, setIsLoading] = React.useState(false);
 
-
   const handleSort = (value) => {
-      
-      setFetching(true);
-        axios.get(`http://localhost/resident?sort=${value}`).then((res) => {
-            setRows([...res.data]);
-            setFetching(false);
-        })
-
+    console.log(value);
+    setFetching(true);
+    axios.get(`http://localhost/flat/?sort=${value}`)
+    .then((res) => {
+      setRows([...res.data]);
+      setFetching(false);
+    })
+    .catch((err) => {
+        console.log(err);
+        setFetching(false);
+    })
+    
 
     // setRows(sorted);
   };
 
-  
-
   const handleFilterChange = (e) => {
-    const value = e.target.value.toUpperCase();
+    const value = e.target.value;
 
-    if(value === ""){
-        fetchData()
-        return
+    if (value === "") {
+      fetchData();
+      return;
     }
 
     setFetching(true);
-    axios.get(`http://localhost/resident/?block=${value}`).then((res) => {
-        setRows([...res.data]);
-        setFetching(false);
-    })
-
+    axios.get(`http://localhost/flat/?block=${value.toUpperCase()}`).then((res) => {
+      setRows([...res.data]);
+      setFetching(false);
+    });
 
   };
 
-  const handleDetailPage = (id) => {
-
-    navigate(`/resident/${id}`);
-  };
+ 
 
   return (
     <>
@@ -138,33 +135,26 @@ export  function CustomizedTables() {
             <TableHead>
               <TableRow>
                 <StyledTableCell>ID </StyledTableCell>
-                <StyledTableCell>NAME </StyledTableCell>
-                <StyledTableCell>TYPE</StyledTableCell>
                 <StyledTableCell>BLOCK</StyledTableCell>
-                <StyledTableCell>TOTAL RESIDENT</StyledTableCell>
                 <StyledTableCell>FLAT NO.</StyledTableCell>
-                <StyledTableCell>IMAGE</StyledTableCell>
+                <StyledTableCell>Available</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row, i) => (
                 <StyledTableRow
                   key={row.id}
-                  onClick={() => {
-                    handleDetailPage(row._id);
-                  }}
+                 
                 >
                   <StyledTableCell component="th" scope="row">
                     {i + 1}
                   </StyledTableCell>
-                  <StyledTableCell>{row.name}</StyledTableCell>
-                  <StyledTableCell>{row.type}</StyledTableCell>
-                  <StyledTableCell>{row.flat_id.block}</StyledTableCell>
+                  <StyledTableCell>{row.block}</StyledTableCell>
+                  <StyledTableCell>{row.flat_no}</StyledTableCell>
                   <StyledTableCell>
-                    {row.flat_id.total_resident}
+                    {!row.status ? "Available" : "Not Available"}
                   </StyledTableCell>
-                  <StyledTableCell>{row.flat_id.flat_no}</StyledTableCell>
-                  <StyledTableCell>{"no image"}</StyledTableCell>
+              
 
                   {/* <StyledTableCell>
                     <Link to={`/add-city/${row.id}`}>{"Edit"}</Link>
