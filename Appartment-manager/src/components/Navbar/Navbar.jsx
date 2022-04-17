@@ -12,6 +12,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
+import {useSelector,useDispatch} from "react-redux"
+import { logoutReq } from "../../Redux/action";
+
+import { useNavigate } from "react-router-dom";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -20,7 +24,10 @@ export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const [isLogin,setIsLogin]= React.useState(false);
+  const {isLoggedIn} = useSelector(state => state);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,7 +42,12 @@ export const Navbar = () => {
 
   const handleCloseUserMenu = (task) => {
 
-    console.log(task)
+    if(task === "Logout"){
+      dispatch(logoutReq());
+      navigate("/login");
+    }
+
+    // console.log(task)
     setAnchorElUser(null);
   };
 
@@ -94,7 +106,7 @@ export const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            Apartment Details
+            <Link to={"/"}>Apartment Details</Link>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -108,44 +120,47 @@ export const Navbar = () => {
             ))}
           </Box>
 
-          {isLogin ? (<Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => handleCloseUserMenu(setting)}
-                >
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> 
-          </Box> ) : (<Box sx={{ flexGrow: 0 }}>
-              <Link to={"/login"}>
-              Login
-              </Link>
-          </Box>)}
-
-         
+          {isLoggedIn ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="Remy Sharp"
+                    src="https://img.icons8.com/external-flaticons-flat-flat-icons/2x/external-login-web-development-flaticons-flat-flat-icons.png"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting}
+                    onClick={() => handleCloseUserMenu(setting)}
+                  >
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <Box sx={{ flexGrow: 0 }}>
+              <Link to={"/login"}>Login</Link>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

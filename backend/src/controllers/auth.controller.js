@@ -11,18 +11,22 @@ const newToken = (user) => {
 const login = async (req,res) => {
     try{
       const { email, password } = req.body;
-      // check if email and password is valid
-      const manager = await Manager.findOne({ email });
+      console.log(email)
+      
+      const manager = await Manager.findOne({ email:email });
+
+      console.log(manager)
 
       // if email is not found
       // return error message
       if (!manager) {
         return res.status(400).json({
-          message: "Invalid email or password",
+          message: "Invalid email or password 1",
         });
       }
 
       // check password with store password
+      
 
       const isMatch = await manager.comparePassword(password);
 
@@ -30,7 +34,7 @@ const login = async (req,res) => {
       // return error message
       if (!isMatch) {
         return res.status(400).json({
-          message: "Invalid email or password",
+          message: "Invalid email or password 2",
         });
       }
 
@@ -62,7 +66,7 @@ const register = async (req,res) => {
         // if email is not exist
         // create new manager
 
-        const newManager = Manager.create(req.body);
+        const newManager = await Manager.create(req.body);
 
         return res.status(200).send(newManager);
 

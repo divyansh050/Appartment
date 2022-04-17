@@ -23,7 +23,7 @@ const managerSchema = new mongoose.Schema({
   
     const hash = bcrypt.hashSync(this.password,6);
     this.password = hash;
-    next();
+    return next();
  })
 
 // function comparePassword(password){
