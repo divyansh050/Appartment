@@ -7,6 +7,7 @@ import { Navbar } from '../Navbar/Navbar'
 import { NotFound } from '../NotFound/NotFound'
 import { Register } from '../Register/Register'
 import { Resident } from '../Resident/Resident'
+import { Flats } from "../Flats/Flats";
 
 export const Router = () => {
   return (
@@ -17,7 +18,8 @@ export const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/resident/:id" element={<Resident />} />
-        <Route path="/available_flat_details" element={<AvailableFlat/>} />
+        <Route path="/flat/:id" element={<Flats/>} />
+        <Route path="/available_flat_details" element={<AvailableFlat />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

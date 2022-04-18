@@ -103,6 +103,15 @@ export function CustomizedTables() {
 
   };
 
+  const handleAllot = (id) => {
+    setIsLoading(id);
+    setTimeout(() => {
+      setIsLoading(false);
+      navigate(`/flat/${id}`);
+    } , 1000);
+   
+  }
+
  
 
   return (
@@ -146,11 +155,12 @@ export function CustomizedTables() {
                 <StyledTableCell>FLAT NO.</StyledTableCell>
                 <StyledTableCell>Resident</StyledTableCell>
                 <StyledTableCell>Status</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.map((row, i) => (
-                <StyledTableRow key={row.id}>
+                <StyledTableRow key={row._id}>
                   <StyledTableCell component="th" scope="row">
                     {i + 1}
                   </StyledTableCell>
@@ -160,16 +170,26 @@ export function CustomizedTables() {
                   <StyledTableCell>
                     {!row.status ? "Available" : "Not Available"}
                   </StyledTableCell>
+                  {/* <StyledTableCell>
+                    
+                    {!row.status ? "Click to Allot" : "Not Available"}
+                  </StyledTableCell> */}
 
                   {/* <StyledTableCell>
                     <Link to={`/add-city/${row.id}`}>{"Edit"}</Link>
                   </StyledTableCell> */}
 
-                  {/* <StyledTableCell onClick={() => handleDelete(row.id)}>
-                    <LoadingButton loading={row.id == isLoading}>
-                      {"Delete"}
+                  <StyledTableCell onClick={() => handleAllot(row._id)}>
+                    <LoadingButton
+                      disabled={row.status}
+                      loading={row._id == isLoading}
+                      variant="outlined"
+                      color="secondary"
+                      // sx={{color:"black"}}
+                    >
+                      {"Click to Allot"}
                     </LoadingButton>
-                  </StyledTableCell> */}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>

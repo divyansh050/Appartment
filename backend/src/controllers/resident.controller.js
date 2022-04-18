@@ -11,6 +11,7 @@ router.post("/", async (req, res) => {
 
         const flat  = await Flat.findById(resident.flat_id).lean().exec();
         flat.status = true;
+        flat.total_resident = flat.total_resident + req.body.total_resident;
 
 
         const updated = Flat.findByIdAndUpdate(resident.flat_id,{...flat},{new:true}).exec();

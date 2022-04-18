@@ -63,7 +63,7 @@ export const Navbar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <Link to={"/"}>Dashboard</Link>
+            <Link style={{color:"white"}} to={"/"}>Dashboard</Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -165,7 +165,10 @@ export const Navbar = () => {
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
-              <Link to={"/login"}>Login</Link>
+              <Button variant="outlined">
+                <Link style={{color:"white"}} to={"/login"}>Login</Link>
+              </Button>
+              
             </Box>
           )}
         </Toolbar>

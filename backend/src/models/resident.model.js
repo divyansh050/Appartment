@@ -21,4 +21,14 @@ const Resident = mongoose.model("Resident", residentSchema);
 
 module.exports = Resident;
 
+// {
+//       "name": "Mohan Das",
+//     "age": 32,
+//     "gender": "Male",
+//     "type":"tenant",
+    // "total_resident":2,
+//     "flat_id":"625c97981283eb1cde85c4df"
+
+// }
+
 
