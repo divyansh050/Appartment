@@ -1,8 +1,10 @@
-import {LOGIN, LOGOUT} from './action';
+import {LOGIN, LOGOUT, ERROR,FETCHING} from './action';
 
 const initialState = {
     user: null,
-    isLoggedIn: false
+    isLoggedIn: false,
+    fetching: false,
+    error: null,
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +20,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: null,
                 isLoggedIn: false
+            }
+        case FETCHING:
+            return {
+                ...state,
+                fetching: action.payload
+            }
+        case ERROR:
+            return {
+                ...state,
+                error: action.payload
             }
         default:
             return state;

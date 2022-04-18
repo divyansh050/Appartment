@@ -13,18 +13,16 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useSelector, useDispatch } from "react-redux";
-import { loginReq } from "../../Redux/action";
-import axios from "axios";
+import { login } from "../../Redux/action";
 import {useNavigate} from "react-router-dom";
 
 export function Login() {
-  const [fetching, setFetching] = React.useState(false);
+
+  const {fetching, error} = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
-
-  
 
   const [values, setValues] = React.useState({
     email: "",
@@ -47,25 +45,17 @@ export function Login() {
     event.preventDefault();
   };
   const handleSubmit =  () => {
-    
-        // console.log(values)
-        setFetching(true);
-        axios
-          .post("https://apartment-manager-server.herokuapp.com/login", {
-            email: values.email,
-            password: values.password,
-          })
-          .then((res) => {
-            // console.log(res.data)
-            setFetching(false);
-            dispatch(loginReq(res.data));
-            navigate("/");
-          })
-          .catch((err) => {
-            console.log(err);
-            setFetching(false);
-          });
-    
+
+    dispatch(
+      login(
+        {
+          email: values.email,
+          password: values.password,
+        },
+        navigate
+      )
+    );
+
   };
 
   return (
@@ -119,28 +109,4 @@ export function Login() {
     </>
   );
 }
-/*
-import * as React from "react";
-import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from "@mui/icons-material/Save";
-import Stack from "@mui/material/Stack";
 
-export default function LoadingButtons() {
-  return (
-    <Stack direction="row" spacing={2}>
-      <LoadingButton loading variant="outlined">
-        Submit
-      </LoadingButton>
-     
-      <LoadingButton
-        loading
-        loadingPosition="start"
-        startIcon={<SaveIcon />}
-        variant="outlined"
-      >
-        Save
-      </LoadingButton>
-    </Stack>
-  );
-}
-*/

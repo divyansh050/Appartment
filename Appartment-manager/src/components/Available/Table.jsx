@@ -103,7 +103,10 @@ export function CustomizedTables() {
 
   };
 
-  const handleAllot = (id) => {
+  const handleAllot = (id,status) => {
+
+    if(status) return;
+      
     setIsLoading(id);
     setTimeout(() => {
       setIsLoading(false);
@@ -179,7 +182,9 @@ export function CustomizedTables() {
                     <Link to={`/add-city/${row.id}`}>{"Edit"}</Link>
                   </StyledTableCell> */}
 
-                  <StyledTableCell onClick={() => handleAllot(row._id)}>
+                  <StyledTableCell
+                    onClick={() => handleAllot(row._id, row.status)}
+                  >
                     <LoadingButton
                       disabled={row.status}
                       loading={row._id == isLoading}
